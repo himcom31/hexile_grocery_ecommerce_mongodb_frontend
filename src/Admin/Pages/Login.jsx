@@ -41,7 +41,7 @@ const LoginPage = () => {
 
         // 3. Navigate use kiya refresh ke bajaye
         setTimeout(() => {
-          navigate('/admin/dashboard'); // Is URL ko apne App.js ke route se match karein
+          navigate('/admin/dash'); // Is URL ko apne App.js ke route se match karein
         }, 1500);
       }
     } catch (error) {
