@@ -233,15 +233,15 @@ const UserFooter = () => {
             <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
               <li style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: '#9ca3af' }}>
                 <MapPin size={15} color="#22c55e" style={{ flexShrink: 0 }} />
-                Bihar, India
+                Noida, India
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: '#9ca3af' }}>
                 <Phone size={15} color="#22c55e" style={{ flexShrink: 0 }} />
-                +8801711257498
+                +7563883929
               </li>
               <li style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, color: '#9ca3af' }}>
                 <Mail size={15} color="#22c55e" style={{ flexShrink: 0 }} />
-                support@graminkart.com
+                himanshurchaudhary499@gmail.com
               </li>
             </ul>
           </div>
@@ -282,16 +282,16 @@ const UserFooter = () => {
   <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', justifyContent: 'center' }}>
     <span style={{ fontSize: '12px', color: '#6b7280' }}>© 2026 All Rights Reserved</span>
     <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#4b5563', display: 'inline-block' }} />
-    <span style={{ fontSize: '12px', fontWeight: '500', color: '#9ca3af' }}>GraminKart</span>
+    <span style={{ fontSize: '12px', fontWeight: '500', color: '#9ca3af' }}>&S Tech Solution</span>
     <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#4b5563', display: 'inline-block', margin: '0 2px' }} />
     <span style={{ fontSize: '12px', color: '#6b7280' }}>Design & Development by</span>
     <a
-      href="https://www.hexileservices.com/s"
+      href="https://andstech.netlify.app/"
       target="_blank"
       rel="noopener noreferrer"
       style={{ fontSize: '12px', fontWeight: '500', color: '#0d9488', textDecoration: 'none' }}
     >
-      Hexile Services Pvt. Ltd.
+      Himanshu Chaudhary
     </a>
   </div>
 
