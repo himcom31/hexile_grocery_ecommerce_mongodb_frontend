@@ -197,44 +197,7 @@ const handleSave = async () => {
     setSaving(false);
   }
 };
-  const handleSave = async () => {
-    setSaving(true);
-    try {
-        const formData = new FormData();
-        formData.append('fullName',    form.fullName);
-        formData.append('country',     form.country);
-        formData.append('phone',       form.phone);
-        formData.append('gender',      form.gender);
-        formData.append('dateOfBirth', form.dateOfBirth);
-
-        // Only append the file if the user picked a new one
-        if (fileRef.current?.files[0]) {
-            formData.append('image', fileRef.current.files[0]); // must match upload.single('image')
-        }
-
-        const res = await fetch(`${API_BASE}/update-profile`, {
-            method: 'PUT',
-            headers: { Authorization: `Bearer ${token}` },
-            // ⚠️ Do NOT set Content-Type manually — browser sets it with boundary for FormData
-            body: formData,
-        });
-
-        const data = await res.json();
-        if (!data.success) return showToast(data.message, 'error');
-
-        // Update avatar in state from what server returned (Cloudinary URL)
-        if (data.user?.avatar) {
-            setForm(p => ({ ...p, avatar: data.user.avatar }));
-        }
-
-        showToast('✓ Profile updated successfully!');
-    } catch {
-        showToast('Network error', 'error');
-    } finally {
-        setSaving(false);
-    }
-};
-
+ 
   const initials = form.fullName
     ? form.fullName.split(" ").map(n => n[0]).join("").slice(0,2).toUpperCase()
     : "U";
