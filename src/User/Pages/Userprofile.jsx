@@ -133,14 +133,70 @@ export default function UserProfile() {
 
   const handleChange = (e) => setForm(p => ({ ...p, [e.target.name]: e.target.value }));
 
-  const handleFile = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => setForm(p => ({ ...p, avatar: reader.result }));
-    reader.readAsDataURL(file);
-  };
+ // Replace handleFile — just store the File object, show preview locally
+const handleFile = (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
 
+  // Show instant local preview
+  const previewUrl = URL.createObjectURL(file);
+  setForm(p => ({ ...p, avatar: previewUrl }));
+
+  // Upload to Cloudinary immediately
+  uploadAvatarFile(file);
+};
+
+// New: upload avatar as FormData to /upload-avatar
+const uploadAvatarFile = async (file) => {
+  const formData = new FormData();
+  formData.append('avatar', file);   // matches avatarUpload.single('avatar')
+
+  try {
+    const res = await fetch(`${API_BASE}/upload-avatar`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      // ⚠️ NO Content-Type header — browser sets multipart boundary automatically
+      body: formData,
+    });
+    const data = await res.json();
+    if (data.success) {
+      setForm(p => ({ ...p, avatar: data.avatar }));  // replace preview with Cloudinary URL
+      showToast('✓ Photo updated!');
+    } else {
+      showToast(data.message || 'Photo upload failed', 'error');
+    }
+  } catch {
+    showToast('Network error during photo upload', 'error');
+  }
+};
+
+// handleSave — plain JSON, no FormData, no avatar
+const handleSave = async () => {
+  setSaving(true);
+  try {
+    const res = await fetch(`${API_BASE}/update-profile`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        fullName:    form.fullName,
+        country:     form.country,
+        phone:       form.phone,
+        gender:      form.gender,
+        dateOfBirth: form.dateOfBirth,
+      }),
+    });
+    const data = await res.json();
+    if (!data.success) return showToast(data.message, 'error');
+    showToast('✓ Profile updated successfully!');
+  } catch {
+    showToast('Network error', 'error');
+  } finally {
+    setSaving(false);
+  }
+};
   const handleSave = async () => {
     setSaving(true);
     try {
